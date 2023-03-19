@@ -14,10 +14,12 @@ char alphabet[52] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	while (n <= 122)
 	{
 		putchar(n);
+		n++;
 	}
 	while (i <= 90)
 	{
 		putchar(i);
+		i++;
 	}
 	putchar('\n');
 	return (0);
