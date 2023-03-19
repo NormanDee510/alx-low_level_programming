@@ -8,12 +8,17 @@
 int main(void)
 {
 char alphabet[52] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	int i;
+	int n = 97;
+	int i = 65;
 
-	for (i = 0; i < 52; i++)
+	while (n <= 122)
 	{
-		putchar(alphabet[i]);
+		putchar(n);
 	}
-	putchar("\n");
+	while (i <= 90)
+	{
+		putchar(i);
+	}
+	putchar('\n');
 	return (0);
 }
