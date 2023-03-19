@@ -7,7 +7,7 @@
  */
 int main(void)
 {
-char alphabet[52] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 	int n = 97;
 	int i = 65;
 
