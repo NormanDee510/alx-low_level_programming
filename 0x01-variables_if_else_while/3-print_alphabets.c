@@ -14,6 +14,6 @@ char alphabet[52] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	{
 		putchar(alphabet[i]);
 	}
-	putchar("\n")
+	putchar("\n");
 	return (0);
 }
