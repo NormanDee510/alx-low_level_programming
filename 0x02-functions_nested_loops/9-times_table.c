@@ -1,3 +1,4 @@
+#include "main.h"
 /**
  * void times_table -  function that prints the 9 times table, starting with 0
  *
@@ -16,8 +17,8 @@ void times_table(void)
 		{
 			int result = row * col;
 
-			_putchar("%d, ", result);
+			printf("%d, ", result);
 		}
-		_putchar('\n');
+		printf('\n');
 	}
 }
