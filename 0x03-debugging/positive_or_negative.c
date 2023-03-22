@@ -9,5 +9,5 @@ void positive_or_negative(int i)
 		printf("%d is negative\n", i);
 
 	else
-		prinf("%d is zero\n", i);
+		printf("%d is zero\n", i);
 }
