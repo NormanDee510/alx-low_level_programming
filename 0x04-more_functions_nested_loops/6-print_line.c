@@ -14,7 +14,7 @@ void print_line(int n)
 	}
 	else
 	{
-		for (co = 1; co <= n; co++)
+		for (co = 1; co <= 5; co++)
 		{
 			_putchar('-');
 		}
