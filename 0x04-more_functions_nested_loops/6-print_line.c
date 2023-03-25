@@ -6,18 +6,18 @@
  */
 void print_line(int n)
 {
-	int co;
+int i;
 
-	if (n <= 0)
-	{
-		_putchar('\n');
-	}
-	else
-	{
-		for (co = 1; co <= 5; co++)
-		{
-			_putchar('-');
-		}
-		_putchar('\n');
-	}
+if (n <= 0)
+{
+_putchar('\n');
+}
+else
+{
+for (i = 1; i <= 5; i++)
+{
+_putchar('-');
+}
+_putchar('\n');
+}
 }
