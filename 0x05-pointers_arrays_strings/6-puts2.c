@@ -1,4 +1,4 @@
-#incude "main.h"
+#include "main.h"
 /**
  * puts2 - print every other character of a string,starting with the first one
  * @str: input
