@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 		/*Condition if one of the number contains symbols that are not digits*/
 		else
 		{
-			print("Error\n");
+			printf("Error\n");
 			return (1);
 		}
 		count++;
