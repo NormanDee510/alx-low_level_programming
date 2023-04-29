@@ -12,20 +12,31 @@ size_t print_list(const list_t *h)
 {
 	size_t count = 0;
 
-	while (h)
+	while (h != NULL)
 	{
-		int len = 0;
-		char *str = h->str ? h->str : "(nil)";
-
-		while (str[len])
-			len++;
-		_putchar('[');
-		print_unsigned_int(h->len);
-		_putchar(']');
-		_putchar(' ');
-		for (int i = 0; i < len; i++)
-			_putchar(str[i]);
-		_putchar('\n');
+		if (h->str == NULL)
+		{
+			_putchar('[');
+			_putchar('0');
+			_putchar(']');
+			_putchar(' ');
+			_putchar('(');
+			_putchat('n');
+			_putchar('i');
+			_putchar('l');
+			_putchar(')');
+			_putchar('\n');
+		}
+		else
+		{
+			_putchar('[');
+			print_unsigned_int(h->len);
+			_putchar(']');
+			_putchar(' ');
+			for (int i = 0; h->str[i]; i++)
+				_putchar(h->str[i]);
+			_putchar('\n');
+		}
 		h = h->next;
 		count++;
 	}
