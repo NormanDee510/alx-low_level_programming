@@ -13,12 +13,10 @@ list_t *add_node_end(list_t **head, const char *str)
 {
 	list_t *new, *last;
 
-	/*Allocate memory for the new node*/
 	new = malloc(sizeof(list_t));
 	if (!new)
 		return (NULL);
 
-	/*Populate the new node*/
 	new->str = strdup(str);
 	if (!new->str)
 	{
@@ -26,7 +24,6 @@ list_t *add_node_end(list_t **head, const char *str)
 		return (NULL);
 	}
 
-	/* If the list is empty, new node is the head */
 	if (*head == NULL)
 	{
 		*head = new;
