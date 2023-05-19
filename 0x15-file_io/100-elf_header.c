@@ -23,6 +23,7 @@ void close_elf(int elf);
  *
  * Description: If a file is not an ELF file - exit code 98.
  */
+
 void check_elf(unsigned char *e_ident)
 {
 int index;
@@ -44,6 +45,7 @@ exit(98);
  *
  * Description: The numbers are separated by spaces.
  */
+
 void print_magic(unsigned char *e_ident)
 {
 int index;
@@ -59,11 +61,12 @@ printf("\n");
 else
 printf(" ");
 }
-
+}
 /**
  * print_class - it prints the class of an ELF header.
  * @e_ident: it is  pointer to an array containing the ELF class.
  */
+
 void print_class(unsigned char *e_ident)
 {
 printf(" Class: ");
@@ -115,6 +118,7 @@ printf("<unknown: %x>\n", e_ident[EI_OSABI]);
  * print_data - it prints the data of an ELF header.
  * @e_ident: It is a  pointer to an array containing the ELF class.
  */
+
 void print_data(unsigned char *e_ident)
 {
 printf(" Data: ");
@@ -140,6 +144,7 @@ printf("<unknown: %x>\n", e_ident[EI_CLASS]);
  *  print_version - it prints the version of an ELF header.
  * @e_ident: it is a pointer to array containing the ELF version.
  */
+
 void print_version(unsigned char *e_ident)
 {
 printf(" Version: %d",
@@ -160,6 +165,7 @@ break;
  * print_osabi - Prints the OS/ABI of an ELF header.
  * @e_ident: A pointer to an array containing the ELF version.
  */
+
 void print_osabi(unsigned char *e_ident)
 {
 printf(" OS/ABI: ");
@@ -212,6 +218,7 @@ printf("<unknown: %x>\n", e_ident[EI_OSABI]);
  * print_abi - it prints the ABI version of an ELF header.
  * @e_ident: its a pointer to an array containing the ELF ABI version.
  */
+
 void print_abi(unsigned char *e_ident)
 {
 printf(" ABI Version: %d\n",
@@ -223,6 +230,7 @@ e_ident[EI_ABIVERSION]);
  * @e_type: The ELF type.
  * @e_ident: its a pointer to an array containing the ELF class.
  */
+
 void print_type(unsigned int e_type, unsigned char *e_ident)
 {
 if (e_ident[EI_DATA] == ELFDATA2MSB)
@@ -256,6 +264,7 @@ printf("<unknown: %x>\n", e_type);
  * @e_entry: This is the  address of the ELF entry point.
  * @e_ident: its a pointer to an array containing the ELF class.
  */
+
 void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 {
 printf(" Entry point address: ");
@@ -277,6 +286,7 @@ printf("%#lx\n", e_entry);
  *
  * Description: If file cannot be closed - exit code 98.
  */
+
 void close_elf(int elf)
 {
 if (close(elf) == -1)
@@ -298,6 +308,7 @@ exit(98);
  * Description: If file is not an ELF File or
  * the function fails - exit code 98.
  */
+
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
 
@@ -344,5 +355,4 @@ free(header);
 close_elf(o);
 
 return (0);
-}
 }
