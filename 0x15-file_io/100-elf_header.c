@@ -1,10 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <elf.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void check_elf(unsigned char *e_ident);
 void print_magic(unsigned char *e_ident);
@@ -18,137 +18,106 @@ void print_entry(unsigned long int e_entry, unsigned char *e_ident);
 void close_elf(int elf);
 
 /**
- * check_elf - it checks if a file is an ELF file.
- * @e_ident: its a pointer to an array containing the ELF numbers.
- *
- * Description: If a file is not an ELF file - exit code 98.
- */
-
+* check_elf - it checks if a file is an ELF file.
+* @e_ident: its a pointer to an array containing the ELF numbers.
+*
+* Description: If a file is not an ELF file - exit code 98.
+*/
 void check_elf(unsigned char *e_ident)
 {
-int index;
+int array_index;
 
-for (index = 0; index < 4; index++)
+for (array_index = 0; array_index < 4; array_index++)
 {
-if (e_ident[index] != 127 && e_ident[index] != 'E' && e_ident[index] != 'L' && e_ident[index] != 'F')
+if (e_ident[array_index] != 127 &&
+	e_ident[array_index] != 'E' &&
+	e_ident[array_index] != 'L' &&
+	e_ident[array_index] != 'F')
 {
-dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
-
-exit(98);
+	dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
+	exit(98);
 }
 }
 }
 
 /**
- * print_magic - it prints the  numbers of an ELF header.
- * @e_ident: its a pointer to an array containing the ELF  numbers.
- *
- * Description: The numbers are separated by spaces.
- */
-
-void print_magic(unsigned char *e_ident)
+* print_magic - it prints the  numbers of an ELF header.
+* @e_ident: its a pointer to an array containing the ELF  numbers.
+*
+*
+* void print_magic(unsigned char *e_ident)
 {
-int index;
+int array_index;
 
 printf(" Magic: ");
 
-for (index = 0; index < EI_NIDENT; index++)
+for (array_index = 0; array_index < EI_NIDENT; array_index++)
 {
-printf("%02x", e_ident[index]);
+printf("%02x", e_ident[array_index]);
 
-if (index == EI_NIDENT - 1)
-printf("\n");
+if (array_index == EI_NIDENT - 1)
+	printf("\n");
 else
-printf(" ");
+	printf(" ");
 }
 }
-/**
- * print_class - it prints the class of an ELF header.
- * @e_ident: it is  pointer to an array containing the ELF class.
- */
 
+/**
+* print_class - it prints the class of an ELF header.
+* @e_ident: it is  pointer to an array containing the ELF class.
+*/
 void print_class(unsigned char *e_ident)
 {
 printf(" Class: ");
 
-if (e_ident[EI_OSABI] == ELFOSABI_NONE)
-printf("UNIX - System V\n");
-else if (e_ident[EI_OSABI] == ELFOSABI_HPUX)
+switch (e_ident[EI_CLASS])
 {
-printf("UNIX - HP-UX\n");
+case ELFCLASSNONE:
+printf("none\n");
+break;
+case ELFCLASS32:
+printf("ELF32\n");
+break;
+case ELFCLASS64:
+printf("ELF64\n");
+break;
+default:
+printf("<unknown: %x>\n", e_ident[EI_CLASS]);
 }
-else if (e_ident[EI_OSABI] == ELFOSABI_NETBSD)
-{
-printf("UNIX - NetBSD\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_LINUX)
-{
-printf("UNIX - Linux\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_SOLARIS)
-{
-printf("UNIX - Solaris\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_IRIX)
-{
-printf("UNIX - IRIX\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_FREEBSD)
-{
-printf("UNIX - FreeBSD\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_TRU64)
-{
-printf("UNIX - TRU64\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_ARM)
-{
-printf("ARM\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_STANDALONE)
-{
-printf("Standalone App\n");
-}
-else
-printf("<unknown: %x>\n", e_ident[EI_OSABI]);
-
 }
 
 /**
- * print_data - it prints the data of an ELF header.
- * @e_ident: It is a  pointer to an array containing the ELF class.
- */
-
+* print_class - it prints the class of an ELF header.
+* @e_ident: it is  pointer to an array containing the ELF class.
+*/
 void print_data(unsigned char *e_ident)
 {
 printf(" Data: ");
 
-if (e_ident[EI_DATA] == ELFDATANONE)
+switch (e_ident[EI_DATA])
 {
+case ELFDATANONE:
 printf("none\n");
-}
-else if (e_ident[EI_DATA] == ELFDATA2LSB)
-{
+break;
+case ELFDATA2LSB:
 printf("2's complement, little endian\n");
-}
-else if (e_ident[EI_DATA] == ELFDATA2MSB)
-{
+break;
+case ELFDATA2MSB:
 printf("2's complement, big endian\n");
-}
-else
+break;
+default:
 printf("<unknown: %x>\n", e_ident[EI_CLASS]);
-
+}
 }
 
 /**
- *  print_version - it prints the version of an ELF header.
- * @e_ident: it is a pointer to array containing the ELF version.
- */
-
+* print_class - it prints the class of an ELF header.
+* @e_ident: it is  pointer to an array containing the ELF class.
+*/
 void print_version(unsigned char *e_ident)
 {
 printf(" Version: %d",
-e_ident[EI_VERSION]);
+	  e_ident[EI_VERSION]);
 
 switch (e_ident[EI_VERSION])
 {
@@ -162,63 +131,54 @@ break;
 }
 
 /**
- * print_osabi - Prints the OS/ABI of an ELF header.
- * @e_ident: A pointer to an array containing the ELF version.
- */
-
+* print_osabi - it prints the OS/ABI of an ELF header.
+* @e_ident: its a  pointer to an array containing the ELF version.
+*/
 void print_osabi(unsigned char *e_ident)
 {
 printf(" OS/ABI: ");
 
-if (e_ident[EI_OSABI] == ELFOSABI_NONE)
+switch (e_ident[EI_OSABI])
 {
+case ELFOSABI_NONE:
 printf("UNIX - System V\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_HPUX)
-{
+break;
+case ELFOSABI_HPUX:
 printf("UNIX - HP-UX\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_NETBSD)
-{
+break;
+case ELFOSABI_NETBSD:
 printf("UNIX - NetBSD\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_LINUX)
-{
+break;
+case ELFOSABI_LINUX:
 printf("UNIX - Linux\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_SOLARIS)
-{
+break;
+case ELFOSABI_SOLARIS:
 printf("UNIX - Solaris\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_IRIX)
-{
+break;
+case ELFOSABI_IRIX:
 printf("UNIX - IRIX\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_FREEBSD)
-{
+break;
+case ELFOSABI_FREEBSD:
 printf("UNIX - FreeBSD\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_TRU64)
-{
+break;
+case ELFOSABI_TRU64:
 printf("UNIX - TRU64\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_ARM)
-{
+break;
+case ELFOSABI_ARM:
 printf("ARM\n");
-}
-else if (e_ident[EI_OSABI] == ELFOSABI_STANDALONE)
-{
+break;
+case ELFOSABI_STANDALONE:
 printf("Standalone App\n");
-}
-else
+break;
+default:
 printf("<unknown: %x>\n", e_ident[EI_OSABI]);
-
 }
-/**
- * print_abi - it prints the ABI version of an ELF header.
- * @e_ident: its a pointer to an array containing the ELF ABI version.
- */
+}
 
+/**
+* print_abi - it prints the ABI version of an ELF header.
+* @e_ident: its a pointer to an array containing the ELF ABI version.
+*/
 void print_abi(unsigned char *e_ident)
 {
 printf(" ABI Version: %d\n",
@@ -226,112 +186,108 @@ e_ident[EI_ABIVERSION]);
 }
 
 /**
- * print_type - it prints the type of an ELF header.
- * @e_type: The ELF type.
- * @e_ident: its a pointer to an array containing the ELF class.
- */
-
+* print_type - it prints the type of an ELF header.
+* @e_type: The ELF type.
+* @e_ident: its a pointer to an array containing the ELF class.
+*/
 void print_type(unsigned int e_type, unsigned char *e_ident)
 {
 if (e_ident[EI_DATA] == ELFDATA2MSB)
 e_type >>= 8;
+
 printf(" Type: ");
-if (e_type == ET_NONE)
+
+switch (e_type)
 {
+case ET_NONE:
 printf("NONE (None)\n");
-}
-else if (e_type == ET_REL)
-{
+break;
+case ET_REL:
 printf("REL (Relocatable file)\n");
-}
-else if (e_type == ET_EXEC)
-{
+break;
+case ET_EXEC:
 printf("EXEC (Executable file)\n");
-}
-else if (e_type == ET_DYN)
-{
+break;
+case ET_DYN:
 printf("DYN (Shared object file)\n");
-}
-else if (e_type == ET_CORE)
-{
+break;
+case ET_CORE:
 printf("CORE (Core file)\n");
-}
-else
+break;
+default:
 printf("<unknown: %x>\n", e_type);
 }
-/**
- * print_entry - it prints the entry point of an ELF header.
- * @e_entry: This is the  address of the ELF entry point.
- * @e_ident: its a pointer to an array containing the ELF class.
- */
+}
 
+/**
+* print_type - it prints the type of an ELF header.
+* @e_type: The ELF type.
+* @e_ident: its a pointer to an array containing the ELF class.
+*/
 void print_entry(unsigned long int e_entry, unsigned char *e_ident)
 {
 printf(" Entry point address: ");
 
 if (e_ident[EI_DATA] == ELFDATA2MSB)
 {
-e_entry = ((e_entry << 8) & 0xFF00FF00) | ((e_entry >> 8) & 0xFF00FF);
+e_entry = ((e_entry << 8) & 0xFF00FF00) |
+	  ((e_entry >> 8) & 0xFF00FF);
 e_entry = (e_entry << 16) | (e_entry >> 16);
 }
+
 if (e_ident[EI_CLASS] == ELFCLASS32)
 printf("%#x\n", (unsigned int)e_entry);
+
 else
 printf("%#lx\n", e_entry);
 }
 
 /**
- * close_elf - it closes an ELF file.
- * @elf: its the  file descriptor of the ELF file.
- *
- * Description: If file cannot be closed - exit code 98.
- */
-
+* close_elf - it closes an ELF file.
+* @elf: its the  file descriptor of the ELF file.
+*
+* Description: If file cannot be closed - exit code 98.
+*/
 void close_elf(int elf)
 {
 if (close(elf) == -1)
 {
 dprintf(STDERR_FILENO,
-"Error: Can't close fd %d\n", elf);
+	"Error: Can't close fd %d\n", elf);
 exit(98);
 }
 }
 
 /**
- * main - it displays the information  in the
- * ELF header at start of an ELF file.
- * @argc: its the  number of arguments  to the program.
- * @argv: its an array of pointers to the arguments.
- *
- * Return: 0 on success.
- *
- * Description: If file is not an ELF File or
- * the function fails - exit code 98.
- */
-
+* main - it displays the information  in the
+* ELF header at start of an ELF file.
+* @argc: its the  number of arguments  to the program.
+* @argv: its an array of pointers to the arguments.
+*
+* Return: 0 on success.
+*
+* Description: If file is not an ELF File or
+* the function fails - exit code 98.
+*/
 int main(int __attribute__((__unused__)) argc, char *argv[])
 {
-
 Elf64_Ehdr *header;
 int o, r;
-o = open(argv[1], O_RDONLY);
 
+o = open(argv[1], O_RDONLY);
 if (o == -1)
 {
 dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 exit(98);
 }
 header = malloc(sizeof(Elf64_Ehdr));
-
 if (header == NULL)
 {
 close_elf(o);
 dprintf(STDERR_FILENO, "Error: Can't read file %s\n", argv[1]);
 exit(98);
 }
-
 r = read(o, header, sizeof(Elf64_Ehdr));
-
 if (r == -1)
 {
 free(header);
@@ -353,6 +309,5 @@ print_entry(header->e_entry, header->e_ident);
 
 free(header);
 close_elf(o);
-
 return (0);
 }
