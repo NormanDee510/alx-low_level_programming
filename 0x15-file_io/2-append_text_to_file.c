@@ -6,7 +6,7 @@
  * @text_content: is the string to add in a file
  *
  * Return: if filename is NULL --1 or if the function fails.
- *if the the file does not exist --1 else -1..
+ *if the the file does not exist --1 else -1
  */
 int append_text_to_file(const char *filename, char *text_content)
 {
