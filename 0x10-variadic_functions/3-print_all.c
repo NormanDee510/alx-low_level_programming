@@ -3,13 +3,13 @@
 #include <stdio.h>
 
 /**
- * print_all - prints anything
- * @format: list of types of arguments passed to the function
+ * print_all - it prints anything
+ * @format: its a list of types of arguments passed to a function
  */
 void print_all(const char * const format, ...)
 {
-	int i = 0;
-	char *str, *sep = "";
+	int n = 0;
+	char *strng, *seprt = "";
 
 	va_list list;
 
@@ -17,33 +17,34 @@ void print_all(const char * const format, ...)
 
 	if (format)
 	{
-		while (format[i])
+		while (format[n])
 		{
-			switch (format[i])
+			switch (format[n])
 			{
 				case 'c':
-					printf("%s%c", sep, va_arg(list, int));
+					printf("%s%c", seprt, va_arg(list, int));
 					break;
-				case 'i':
-					printf("%s%d", sep, va_arg(list, int));
+				case 'n':
+					printf("%s%d", seprt, va_arg(list, int));
 					break;
 				case 'f':
-					printf("%s%f", sep, va_arg(list, double));
+					printf("%s%f", seprt, va_arg(list, double));
 					break;
 				case 's':
-					str = va_arg(list, char *);
-					if (!str)
-						str = "(nil)";
-					printf("%s%s", sep, str);
+					strng = va_arg(list, char *);
+					if (!strng)
+						strng = "(nil)";
+					printf("%s%s", seprt, strng);
 					break;
 				default:
-					i++;
+					n++;
 					continue;
 			}
-			sep = ",";
-			i++;
+			seprt = ", ";
+			n++;
 		}
 	}
+
 	printf("\n");
 	va_end(list);
 }
