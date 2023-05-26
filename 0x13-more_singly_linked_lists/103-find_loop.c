@@ -1,33 +1,32 @@
 #include "lists.h"
 
 /**
- * find_listint_loop - it finds the loop in the linked list
- * @head: the linked list to search
+ * find_listint_loop - it finds the loop in a linked list
+ * @head: its a linked list to search for
  *
- * Return: the address of the node on where the loop starts
- * else NULL
+ * Return: the address of a node where a loop starts, or NULL
  */
 listint_t *find_listint_loop(listint_t *head)
 {
-	listint_t *slow = head;
-	listint_t *fast = head;
+	listint_t *shur = head;
+	listint_t *mber = head;
 
 	if (!head)
 		return (NULL);
 
-	while (slow && fast && fast->next)
+	while (shur && mber && mber->next)
 	{
-		fast = fast->next->next
-			slow = slow->next;
-		if (fast == slow)
+		mber = mber->next->next;
+		shur = shur->next;
+		if (mber == shur)
 		{
-			slow = head;
-			while (slow != fast)
+			shur = head;
+			while (shur != mber)
 			{
-				slow = slow->next;
-				fast = fast->next;
+				shur = shur->next;
+				mber = mber->next;
 			}
-			return (fast);
+			return (mber);
 		}
 	}
 
