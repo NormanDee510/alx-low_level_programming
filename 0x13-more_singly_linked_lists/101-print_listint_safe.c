@@ -14,32 +14,32 @@ size_t looped_listint_len(const listint_t *head);
  */
 size_t looped_listint_len(const listint_t *head)
 {
-	const listint_t *first_node, *last_node;
+	const listint_t *first, *last;
 	size_t nodes = 1;
 
 	if (head == NULL || head->next == NULL)
 		return (0);
 
-	first_node = head->next;
-	last_node = (head->next)->next;
+	first = head->next;
+	last = (head->next)->next;
 
-	while (last_node)
+	while (last)
 	{
-		if (first_node == last_node)
+		if (first == last)
 		{
-			first_node = head;
+			first = head;
 
-			while (first_node != last_node)
+			while (first != last)
 			{
 				nodes++;
-				first_node = first_node->next;
+				first = first->next;
 			}
 
 			return (nodes);
 		}
 
-		first_node = first_node->next;
-		last_node = (last_node->next)->next;
+		first = first->next;
+		last = (last->next)->next;
 	}
 
 	return (0);
