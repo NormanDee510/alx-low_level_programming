@@ -77,10 +77,10 @@ void print_class(unsigned char *e_ident)
 		printf("none\n");
 		break;
 	case ELFCLASS32:
-		printf("ELF32\n");
+		printf("Class:\n");
 		break;
 	case ELFCLASS64:
-		printf("ELF64\n");
+		printf("Class:\n");
 		break;
 	default:
 		printf("<unknown: %x>\n", e_ident[EI_CLASS]);
@@ -101,10 +101,10 @@ void print_data(unsigned char *e_ident)
 		printf("none\n");
 		break;
 	case ELFDATA2LSB:
-		printf("2's complement, little endian\n");
+		printf("Data:\n");
 		break;
 	case ELFDATA2MSB:
-		printf("2's complement, big endian\n");
+		printf("Data:\n");
 		break;
 	default:
 		printf("<unknown: %x>\n", e_ident[EI_CLASS]);
@@ -146,31 +146,31 @@ void print_osabi(unsigned char *e_ident)
 		printf("UNIX - System V\n");
 		break;
 	case ELFOSABI_HPUX:
-		printf("UNIX - HP-UX\n");
+		printf("OS/ABI:\n");
 		break;
 	case ELFOSABI_NETBSD:
-		printf("UNIX - NetBSD\n");
+		printf("OS/ABI:\n");
 		break;
 	case ELFOSABI_LINUX:
-		printf("UNIX - Linux\n");
+		printf("OS/ABI:\n");
 		break;
 	case ELFOSABI_SOLARIS:
-		printf("UNIX - Solaris\n");
+		printf("OS/ABI:\n");
 		break;
 	case ELFOSABI_IRIX:
-		printf("UNIX - IRIX\n");
+		printf("OS/ABI:\n");
 		break;
 	case ELFOSABI_FREEBSD:
-		printf("UNIX - FreeBSD\n");
+		printf("OS/ABI:\n");
 		break;
 	case ELFOSABI_TRU64:
-		printf("UNIX - TRU64\n");
+		printf("OS/ABI:\n");
 		break;
 	case ELFOSABI_ARM:
-		printf("ARM\n");
+		printf("OS/ABI:\n");
 		break;
 	case ELFOSABI_STANDALONE:
-		printf("Standalone App\n");
+		printf("OS/ABI:\n");
 		break;
 	default:
 		printf("<unknown: %x>\n", e_ident[EI_OSABI]);
@@ -207,16 +207,16 @@ void print_type(unsigned int e_type, unsigned char *e_ident)
 		printf("NONE (None)\n");
 		break;
 	case ET_REL:
-		printf("REL (Relocatable file)\n");
+		printf("Type:)\n");
 		break;
 	case ET_EXEC:
-		printf("EXEC (Executable file)\n");
+		printf("Type:)\n");
 		break;
 	case ET_DYN:
-		printf("DYN (Shared object file)\n");
+		printf("Type:)\n");
 		break;
 	case ET_CORE:
-		printf("CORE (Core file)\n");
+		printf("Type:)\n");
 		break;
 	default:
 		printf("<unknown: %x>\n", e_type);
